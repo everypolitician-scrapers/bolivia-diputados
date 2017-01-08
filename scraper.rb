@@ -1,5 +1,6 @@
 #!/bin/env ruby
 # encoding: utf-8
+# frozen_string_literal: true
 
 require 'nokogiri'
 require 'pry'
@@ -10,7 +11,7 @@ OpenURI::Cache.cache_path = '.cache'
 
 class String
   def tidy
-    self.gsub(/[[:space:]]+/, ' ').strip
+    gsub(/[[:space:]]+/, ' ').strip
   end
 end
 
@@ -23,12 +24,12 @@ def scrape_list(url)
   deps = noko.css('.box-dip').map do |box|
     name = box.css('p#nombre').text
 
-    data = { 
-      name: name,
+    data = {
+      name:  name,
       image: box.css('img/@src').text,
-      dpto:  box.xpath('.//p[contains(.,"Dpto:")]').text.to_s.sub('Dpto: ',''),
-      dip:   box.xpath('.//p[contains(.,"Dip. ")]').text.to_s.sub('Dip. ',''),
-      party: box.xpath('.//p[contains(.,"Bancada:")]').text.to_s.sub('Bancada: ',''),
+      dpto:  box.xpath('.//p[contains(.,"Dpto:")]').text.to_s.sub('Dpto: ', ''),
+      dip:   box.xpath('.//p[contains(.,"Dip. ")]').text.to_s.sub('Dip. ', ''),
+      party: box.xpath('.//p[contains(.,"Bancada:")]').text.to_s.sub('Bancada: ', ''),
       type:  box.xpath('.//p//strong').text.to_s,
     }.reject { |_, v| v.nil? || v.to_s.empty? }
     data[:image] = URI.join(url, URI.encode(data[:image])).to_s unless data[:image].to_s.empty?
@@ -36,19 +37,18 @@ def scrape_list(url)
     data
   end
 
-  deps.group_by { |d| d[:id] }.each do |d, ds| 
-    data = ds.reduce(&:merge).merge({ term: 2015, source: url })
-    if data[:dip].include? ('Uninominal')
-      data[:area_id] = data[:dip].sub('Uninominal ','')
+  deps.group_by { |d| d[:id] }.each do |_d, ds|
+    data = ds.reduce(&:merge).merge(term: 2015, source: url)
+    if data[:dip].include? 'Uninominal'
+      data[:area_id] = data[:dip].sub('Uninominal ', '')
       data[:area] = data[:dpto]
-    elsif %w(Plurinominal Especial).include? data[:dip] 
+    elsif %w(Plurinominal Especial).include? data[:dip]
       data[:area] = data[:dpto]
     else
-      raise "Unknown area"
+      raise 'Unknown area'
     end
-    ScraperWiki.save_sqlite([:id, :term], data)
+    ScraperWiki.save_sqlite(%i(id term), data)
   end
- 
 end
 
 scrape_list('http://www.diputados.bo/script/dip-index.php')
