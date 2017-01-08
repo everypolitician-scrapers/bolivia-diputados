@@ -1,0 +1,35 @@
+---
+request:
+  method: get
+  uri: http://www.diputados.bo/script/dip-index.php
+  body:
+    encoding: US-ASCII
+    string: ''
+  headers:
+    Accept-Encoding:
+    - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    Accept:
+    - "*/*"
+    User-Agent:
+    - Ruby
+response:
+  status:
+    code: 200
+    message: OK
+  headers:
+    Date:
+    - Sun, 08 Jan 2017 18:25:23 GMT
+    Server:
+    - Apache/2.4.6 (CentOS) PHP/5.4.16
+    X-Powered-By:
+    - PHP/5.4.16
+    Set-Cookie:
+    - 427e010cb94874c8e85fd59ea7d32ca4=aq7iprnl0puodpsedm2i7u8vv3; path=/; HttpOnly
+    Transfer-Encoding:
+    - chunked
+    Content-Type:
+    - text/html; charset=UTF-8
+  body:
+    encoding: ASCII-8BIT
+  http_version: 
+recorded_at: Sun, 08 Jan 2017 18:27:01 GMT
