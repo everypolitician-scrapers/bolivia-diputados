@@ -37,12 +37,12 @@ def scrape_list(url)
     if data[:dip].include? 'Uninominal'
       data[:area_id] = data[:dip].sub('Uninominal ', '')
       data[:area] = data[:dpto]
-    elsif %w(Plurinominal Especial).include? data[:dip]
+    elsif %w[Plurinominal Especial].include? data[:dip]
       data[:area] = data[:dpto]
     else
       raise 'Unknown area'
     end
-    ScraperWiki.save_sqlite(%i(id term), data)
+    ScraperWiki.save_sqlite(%i[id term], data)
   end
 end
 
