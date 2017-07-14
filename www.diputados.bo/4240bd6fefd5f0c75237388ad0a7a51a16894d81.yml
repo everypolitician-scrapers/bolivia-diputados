@@ -18,13 +18,13 @@ response:
     message: OK
   headers:
     Date:
-    - Thu, 13 Jul 2017 09:52:34 GMT
+    - Fri, 14 Jul 2017 17:20:57 GMT
     Server:
     - Apache/2.4.6 (CentOS) PHP/5.4.16
     X-Powered-By:
     - PHP/5.4.16
     Set-Cookie:
-    - 427e010cb94874c8e85fd59ea7d32ca4=qpb4v0rr877pguakn384c952j6; path=/; HttpOnly
+    - 427e010cb94874c8e85fd59ea7d32ca4=kiai1vnc45v5emqv3sj7vufg32; path=/; HttpOnly
     Transfer-Encoding:
     - chunked
     Content-Type:
@@ -32,4 +32,4 @@ response:
   body:
     encoding: ASCII-8BIT
   http_version: 
-recorded_at: Thu, 13 Jul 2017 09:54:31 GMT
+recorded_at: Fri, 14 Jul 2017 17:22:57 GMT
